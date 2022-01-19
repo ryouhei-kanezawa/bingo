@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 
 class RandomNumberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $rand_keys=mt_rand(1,99);
-
-        return $rand_keys;
+        $str_exclusion = $request->input('number');
+        $exclusion=json_decode($str_exclusion);
+        while(TRUE){
+            $rand_num=mt_rand(1,99);
+            if(!in_array($rand_num,$exclusion)){
+                return $rand_num;
+            }
+        }
     }
 }
